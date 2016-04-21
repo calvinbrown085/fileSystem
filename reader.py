@@ -5,7 +5,10 @@ import sys
 import os
 import struct
 from Utilities import *
-
+from lsInfo import *
+from statInfo import *
+from info import *
+from read import *
 
 fileName = sys.argv[1]
 
@@ -17,6 +20,7 @@ while True:
         print("Bye!")
         break
     elif userInput == "info":
+        #This will give info of the file you passed in, in the arguments
         printInfo(fileName)
     elif userInput == "cd":
         print("change directory")
@@ -27,8 +31,9 @@ while True:
             print("Please enter stat <filename> to get the statistics of it")
         elif(len(fileToStat) > 1):
             fileToStat = fileToStat[1]
-            fileObject = open(fileToStat, "r")
-            fileObject.close()
+            runToStat(fileToStat,fileName)
     elif userInput == "ls":
-        #As of right now this gets the root cluster, I need it to seek to that piece and then read info yet, I haven't figured out how to do that
-        rootClus(fileName)
+        doLs(fileName)
+    elif "read" in userInput:
+        inputList = userInput.split()
+        readFile(inputList[1],inputList[2],inputList[3],fileName)
