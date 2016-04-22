@@ -36,9 +36,8 @@ def rootClus(fileName):
     #FATOffset = fatOffset(fileName, N)
     #print(hex(getInfo(fileName, thisFATSecNum,FATOffset)))
 
-def getSectorInfoForFiles(fileName):
+def getSectorInfoForFiles(fileName, N):
     firstDataSector = rsvdSecCnt(fileName) + (numFats(fileName) * fatsZ32(fileName)) + 0;
-    N = getInfo(fileName, 44, 4, 0)
     firstSectorOfCluster = ((N - 2) * secPerClus(fileName)) + firstDataSector
     clusterAddress = firstSectorOfCluster * bytesPerSector(fileName)
     newStr = ""
@@ -59,9 +58,8 @@ def getSectorInfoForFiles(fileName):
     return newList
 
 
-def doLs(fileName):
+def doLs(fileName, N):
     firstDataSector = rsvdSecCnt(fileName) + (numFats(fileName) * fatsZ32(fileName)) + 0;
-    N = getInfo(fileName, 44, 4, 0)
     firstSectorOfCluster = ((N - 2) * secPerClus(fileName)) + firstDataSector
     clusterAddress = firstSectorOfCluster * bytesPerSector(fileName)
     newStr = ""
@@ -77,5 +75,5 @@ def doLs(fileName):
         newStr = ""
         clusterAddress+=32
 
-    getSectorInfoForFiles(fileName)
+    getSectorInfoForFiles(fileName, N)
     return newList

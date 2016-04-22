@@ -2,12 +2,27 @@
 from lsInfo import *
 from Utilities import *
 
-def getFileList(fileName):
-    newList = getSectorInfoForFiles(fileName)
+def getFileList(fileName, N):
+    newList = getSectorInfoForFiles(fileName, N)
     return newList
 
-def runToStat(fileName, fileToOpen):
-    fileList = getFileList(fileToOpen)
+def getFileSize(fileName, fileToOpen, N):
+    fileList = getFileList(fileToOpen, N)
+    boolean = False
+    getTup = ()
+    for tup in fileList:
+        if(fileName in tup[0]):
+            boolean = True
+            getTup = tup
+    if(boolean == False):
+        print("Error: directory does not exist")
+        return None
+    fileSize = getStatFileInfo(fileToOpen,28, 4, getTup[1])
+    return endinanessOrder(fileSize)
+
+def runToStat(fileName, fileToOpen, N):
+    fileList = getFileList(fileToOpen, N)
+
     boolean = False
     getTup = ()
     for tup in fileList:
