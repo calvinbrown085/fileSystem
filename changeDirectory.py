@@ -11,11 +11,11 @@ def changeDir(fileName,fileImage, N):
             getTup = tup
     if(boolean == False):
         print("Error: directory does not exist")
-        return None
+        return ("",N)
     fileAttr = getStatFileInfo(fileImage, 11,1,getTup[1])
     if(determineFileAttr(endinanessOrder(fileAttr)) != "ATTR_DIRECTORY"):
         print(fileName, "is not a directory")
-        return None
+        return ("",N)
     DIR_FstClusLO = endinanessOrder(getFileInfo(fileImage, 26,2,getTup[1]))
     DIR_FstClusHI = endinanessOrder(getFileInfo(fileImage, 20,2,getTup[1]))
 
